@@ -2,8 +2,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
+import java.util.stream.Collectors;
+
 import static java.lang.Integer.parseInt;
-import static java.util.stream.Collectors.toList;
 import static java.util.stream.IntStream.iterate;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -26,35 +27,26 @@ public class DigitalRoot_ {
                 {8, 8},
                 {10,1},
                 {11,2},
-                {20,2}
+                {20,2},
+                {99,9}
         };
     }
 
     @Test
     public void execute() {
-        assertThat(sumOfDigits(number)).isEqualTo(value);
+        assertThat(digitalRootOf(number)).isEqualTo(value);
     }
 
-    private int sumOfDigits(int number) {
-        if (number <= -1)
-            return 0;
-        else if (number >= 10) {
-            String digits = Integer.toString(number);
-            int[] digitBreaker = getDigitArray(digits);
-            int res = 0;
-            for (int item : digitBreaker) {
-                res += item;
-            }
-            return res;
-        }
-        else return number;
+    private int digitalRootOf(int number) {
+        if (number <= -1) return 0;
+        return sumOf(Integer.toString(number)) >=10 ? digitalRootOf(sumOf(Integer.toString(number))) : sumOf(Integer.toString(number));
     }
 
-    private int[] getDigitArray(String digits) {
+    private int sumOf(String digits) {
         return iterate(0, l->l+1)
                 .limit(digits.length())
                 .boxed()
-                .mapToInt( i -> parseInt(digits.substring(i,i+1)))
-                .toArray();
+                .map( i -> parseInt(digits.substring(i,i+1)))
+                .collect(Collectors.summingInt(Integer::intValue));
     }
 }
