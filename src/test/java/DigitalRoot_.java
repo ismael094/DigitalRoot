@@ -17,9 +17,10 @@ public class DigitalRoot_ {
     @Parameterized.Parameters
     public static Object[][] cases() {
         return new Object[][] {
+                {-10,0},
                 {-1,0},
-                {8, 8},
-                {0,0}
+                {0,0},
+                {8, 8}
         };
     }
 
@@ -29,6 +30,6 @@ public class DigitalRoot_ {
     }
 
     private int sumOfDigits(int number) {
-        return number == -1 ? 0 : number;
+        return number <= -1 ? 0 : number;
     }
 }
