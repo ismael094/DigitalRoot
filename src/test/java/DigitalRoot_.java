@@ -21,7 +21,8 @@ public class DigitalRoot_ {
                 {-1,0},
                 {0,0},
                 {8, 8},
-                {10,1}
+                {10,1},
+                {20,2}
         };
     }
 
@@ -33,8 +34,8 @@ public class DigitalRoot_ {
     private int sumOfDigits(int number) {
         if (number <= -1)
             return 0;
-        else if (number == 10)
-            return 1;
+        else if (number >= 10)
+            return number/10;
         else return number;
     }
 }
